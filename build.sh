@@ -5,9 +5,12 @@ set -ex
 PARENT_DIR=$(basename "${PWD%/*}")
 CURRENT_DIR="${PWD##*/}"
 IMAGE_NAME="$PARENT_DIR/$CURRENT_DIR"
-TAG="${1}"
+#TAG="${1}"
 
-REGISTRY="hub.docker.com"
+REGISTRY="ghcr.io"
 
-docker build -t ${REGISTRY}/${IMAGE_NAME}:${TAG} -t ${REGISTRY}/${IMAGE_NAME}:latest .
+docker build -t ${REGISTRY}/${IMAGE_NAME}:latest .
+
+echo ${{ secrets.PACKAGES_TOKEN }} | docker login --username ${1} --password-stdin ${REGISTRY}
+
 docker push ${REGISTRY}/${IMAGE_NAME}
