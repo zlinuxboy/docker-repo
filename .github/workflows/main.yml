@@ -18,11 +18,14 @@ jobs:
   run_tests:
     runs-on: ubuntu-20.04
     steps:
-  # Show how to print unmasked GitHub secrets to the console
-    - name: Step 1 - Echo out a GitHub Actions Secret to the logs
+    - name: Login to DockerHub
+      uses: docker/login-action@v1 
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.PACKAGES_TOKEN }}
+    - name: Build and PUSH
       run: |
-        echo "The GitHub Action Secret will be masked:  "
-        echo ${{ secrets.DOCKER_USERNAME }}
-        echo "Trick to echo GitHub Actions Secret:  "
-        echo ${{secrets.PACKAGES_TOKEN}} | sed 's/./& /g' 
+        chmod +x ./run.sh
+        ./run.sh zouyq
+      shell: bash
   
