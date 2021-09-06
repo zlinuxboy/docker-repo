@@ -22,6 +22,6 @@ jobs:
     - name: Run script file
       run: |
          chmod +x ./run.sh
-         ./run.sh
+         ./run.sh zouyq
       shell: bash
   
