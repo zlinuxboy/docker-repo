@@ -24,7 +24,7 @@ jobs:
       with:
         registry: ghcr.io
         username: ${{ github.actor }}
-        password: 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
+        password: ${{ secrets.GITHUB_TOKEN }}
     - name: Run script file
       run: |
          chmod +x ./run.sh
