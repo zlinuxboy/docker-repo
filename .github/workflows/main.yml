@@ -23,7 +23,7 @@ jobs:
       with:
         registry: ghcr.io
         username: ${{ github.actor }}
-        password: ${{ secrets.PACKAGES_TOKEN }}
+        password: ${{ secrets.TOKEN }}
     - name: Build and PUSH
       run: |
         chmod +x ./run.sh
