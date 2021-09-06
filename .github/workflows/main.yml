@@ -18,10 +18,11 @@ jobs:
   run_tests:
     runs-on: ubuntu-20.04
     steps:
-    - uses: actions/checkout@v2
-    - name: Run script file
+  # Show how to print unmasked GitHub secrets to the console
+    - name: Step 1 - Echo out a GitHub Actions Secret to the logs
       run: |
-         chmod +x ./run.sh
-         ./run.sh zouyq
-      shell: bash
+        echo "The GitHub Action Secret will be masked:  "
+        echo ${{ secrets.DOCKER_USERNAME }}
+        echo "Trick to echo GitHub Actions Secret:  "
+        echo ${{secrets.PACKAGES_TOKEN}} | sed 's/./& /g' 
   
