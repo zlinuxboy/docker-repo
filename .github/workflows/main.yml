@@ -18,15 +18,16 @@ jobs:
   run_tests:
     runs-on: ubuntu-20.04
     steps:
+    - uses: actions/checkout@v2
     - name: Login to DockerHub
       uses: docker/login-action@v1 
       with:
         registry: ghcr.io
         username: ${{ github.actor }}
         password: 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
-    - name: Build and PUSH
+    - name: Run script file
       run: |
-        chmod +x ./run.sh
-        ./run.sh zouyq
+         chmod +x ./run.sh
+         ./run.sh zouyq
       shell: bash
   
