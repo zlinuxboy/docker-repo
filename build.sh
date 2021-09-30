@@ -4,7 +4,8 @@ set -ex
 
 PARENT_DIR=$(basename "${PWD%/*}")
 CURRENT_DIR="${PWD##*/}"
-IMAGE_NAME="$PARENT_DIR/$CURRENT_DIR"
+#IMAGE_NAME="$PARENT_DIR/$CURRENT_DIR"
+IMAGE_NAME="zouyq/$CURRENT_DIR"
 #TAG="${1}"
 
 #REGISTRY="ghcr.io"
