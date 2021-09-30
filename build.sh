@@ -9,5 +9,5 @@ IMAGE_NAME="$PARENT_DIR/$CURRENT_DIR"
 
 #REGISTRY="ghcr.io"
 REGISTRY=""
-docker build -t ${REGISTRY}/${IMAGE_NAME}:latest .
+docker build -t ${IMAGE_NAME}:latest .
 docker push ${REGISTRY}/${IMAGE_NAME}
