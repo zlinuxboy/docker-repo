@@ -1,4 +1,4 @@
-FROM openwrtorg/rootfs
+FROM openwrtorg/rootfs:21.02.0
 LABEL author=zouyiq@gmail.com
 
 RUN mkdir -p /var/lock && \
