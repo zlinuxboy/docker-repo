@@ -1,4 +1,4 @@
-FROM node:lts-alpine as build-stage
+FROM go as build-stage
 LABEL author="zouyiq@gmail.com"
 
 FROM golang:latest AS builder
