@@ -1,4 +1,4 @@
-FROM go as build-stage
+FROM golang:alpine as build-stage
 LABEL author="zouyiq@gmail.com"
 
 FROM golang:latest AS builder
