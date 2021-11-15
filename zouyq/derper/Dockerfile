@@ -9,9 +9,7 @@ RUN CGO_ENABLED=0 go install tailscale.com/cmd/derper@main
 
 FROM alpine
 #RUN mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2
-WORKDIR /app
 
-RUN mkdir /app/cert
-COPY --from=builder /go/bin/derper .
+COPY --from=builder /go/bin/derper /
 
-CMD /app/derper
+CMD /derper
