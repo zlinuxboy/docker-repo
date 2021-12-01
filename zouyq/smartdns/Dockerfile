@@ -15,4 +15,4 @@ RUN apk add --no-cache openssl libgcc
 COPY --from=builder /usr/src/smartdns/etc/smartdns/smartdns.conf /etc/smartdns/smartdns.conf
 COPY --from=builder /usr/src/smartdns/src/smartdns /usr/local/bin/
 
-ENTRYPOINT ["smartdns", "-f", "/etc/smartdns/smartdns.conf"]
+ENTRYPOINT ["smartdns", "-f","-x", "-c", "/etc/smartdns/smartdns.conf"]
