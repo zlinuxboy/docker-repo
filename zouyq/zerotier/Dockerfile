@@ -18,9 +18,9 @@ COPY --from=builder /ZeroTierOne/zerotier-idtool /usr/sbin
 
 RUN apk add --no-cache libstdc++ && rm -rf /var/cache/apk/*
 
-
 COPY entrypoint.sh /entrypoint.sh
+COPY moon.sh /moon.sh
 RUN chmod 755 /entrypoint.sh
+RUN chmod 755 /moon.sh
 
-CMD []
 ENTRYPOINT ["/entrypoint.sh"]
