@@ -1,11 +1,14 @@
 FROM golang:alpine as build-stage
 
-RUN apk update && apk add git
+RUN apk update && apk add git curl
 
 WORKDIR /
 RUN git clone https://github.com/tailscale/tailscale.git
 
 WORKDIR /tailscale
+
+RUN sed -i "s/.\/tool\/go/go/g"  build_dist.sh
+
 RUN ./build_dist.sh tailscale.com/cmd/tailscale
 RUN ./build_dist.sh tailscale.com/cmd/tailscaled
 
