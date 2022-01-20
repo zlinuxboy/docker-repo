@@ -56,7 +56,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
-          context: .
+          context: ./${{ env.base_directory }}/${{ env.target_directory }}
           platforms: linux/arm,linux/amd64,linux/arm64
           push: true
           tags: |
