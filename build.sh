@@ -10,5 +10,5 @@ IMAGE_NAME="$CURRENT_DIR"
 
 #REGISTRY="ghcr.io"
 REGISTRY=""
-docker build -t zouyq/${IMAGE_NAME}:latest .
+docker buildx build --platform linux/amd64,linux/arm64,linux/armv7 -t zouyq/${IMAGE_NAME}:latest .
 docker push zouyq/${IMAGE_NAME}
