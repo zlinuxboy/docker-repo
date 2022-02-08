@@ -10,7 +10,6 @@ RUN mkdir -p /var/lock && \
 
 RUN opkg remove dnsmasq dropbear && opkg install dnsmasq-full
 
-ADD config/network /etc/config/network
 ADD scripts /scripts
 
 WORKDIR /scripts
