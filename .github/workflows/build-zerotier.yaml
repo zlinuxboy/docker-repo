@@ -1,4 +1,4 @@
-name: build-tailscale
+name: build-zerotier
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
@@ -9,7 +9,7 @@ on:
     - cron: "0 5 * * 1"
 env:
   base_directory: zouyq
-  target_directory: tailscale
+  target_directory: zerotier
 
 jobs:
   docker:
