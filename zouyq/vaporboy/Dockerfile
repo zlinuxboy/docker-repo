@@ -1,4 +1,4 @@
-FROM node:lts-alpine as build-stage
+FROM node:alpine as build-stage
 LABEL author="zouyiq@gmail.com"
 
 RUN apk add --no-cache git
