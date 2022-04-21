@@ -1,21 +1,22 @@
-FROM openwrtorg/rootfs:21.02.0
-LABEL author=zouyiq@gmail.com
+FROM alpine:latest AS builder
+
+WORKDIR /out
+
+RUN apk add --update --no-cache curl gzip jq  \
+    && curl -s https://api.github.com/repos/vernesong/OpenClash/releases | jq -r '.[0] | .assets[0] | .browser_download_url' | xargs curl -sSL  -o clash.ipk
+
+FROM openwrtorg/rootfs
+LABEL author=zyqcn@live.com
 
 RUN mkdir -p /var/lock && \
-    opkg update && \
-    opkg install luci luci-base luci-compat luci-i18n-base-zh-cn \
-                 coreutils-nohup bash iptables curl \
-                 jsonfilter ca-certificates ipset ip-full  \
-                 iptables-mod-tproxy iptables-mod-extra libcap libcap-bin ruby ruby-yaml
+    opkg update
 
-RUN opkg remove dnsmasq dropbear && opkg install dnsmasq-full
+COPY --from=builder /out/clash.ipk /clash.ipk
 
-ADD scripts /scripts
+RUN opkg remove dnsmasq dropbear \
+    && opkg install luci luci-base luci-compat luci-i18n-base-zh-cn \
+    && opkg install /clash.ipk
 
-WORKDIR /scripts
-RUN chmod +x *.sh && sh *.sh
-RUN rm -rf /var/opkg-lists && rm -rf /scripts
-WORKDIR /home
+RUN rm -rf /clash.ipk
 
 CMD ["/sbin/init"]
-
