@@ -62,7 +62,7 @@ jobs:
           push: true
           tags: |
             ${{ steps.string.outputs.lowercase }}
-            ghcr.io/${{ steps.string.outputs.lowercase }}
+#            ghcr.io/${{ steps.string.outputs.lowercase }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
