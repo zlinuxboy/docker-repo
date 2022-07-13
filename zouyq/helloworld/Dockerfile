@@ -1,9 +1,9 @@
 FROM alpine
 LABEL author=zyqcn@live.com
 
-RUN apk add --no-cache busybox-extras
+RUN apk add --no-cache busybox-extras tini
 
 COPY index.html /home/index.html
 
-ENTRYPOINT ["httpd"]
-CMD [ "-p", "80", "-h", "/home" ,"-f"]
+ENTRYPOINT ["tini", "--"]
+CMD [ "httpd", "-p", "80", "-h", "/home" ,"-f"]
