@@ -1,13 +1,11 @@
 FROM golang:alpine as build-stage
 
-RUN apk update && apk add git curl
+RUN apk add --no-cache git curl
 
-WORKDIR /
-RUN git clone https://github.com/tailscale/tailscale.git
+RUN git clone https://github.com/tailscale/tailscale.git --depth=1
+WORKDIR /go/tailscale
 
-WORKDIR /tailscale
-
-RUN sed -i "s/.\/tool\/go/go/g"  build_dist.sh
+RUN  ln -f -s $(which go) ./tool/go
 
 RUN ./build_dist.sh tailscale.com/cmd/tailscale
 RUN ./build_dist.sh tailscale.com/cmd/tailscaled
@@ -17,5 +15,7 @@ LABEL author="zyqcn@live.com"
 
 RUN apk add --no-cache ca-certificates iptables iproute2 ip6tables
 
-COPY --from=build-stage /tailscale/tailscale /usr/local/bin
-COPY --from=build-stage /tailscale/tailscaled /usr/local/bin
+COPY --from=build-stage /go/tailscale/tailscale /usr/local/bin
+COPY --from=build-stage /go/tailscale/tailscaled /usr/local/bin
+
+ENTRYPOINT ["tailscaled"]

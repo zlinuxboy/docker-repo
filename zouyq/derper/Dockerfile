@@ -1,15 +1,14 @@
 FROM golang:alpine as build-stage                                                                                                                                                      
-LABEL author="zouyiq@gmail.com"
 
-RUN apk update && apk add git 
 
-WORKDIR /
-RUN git clone https://github.com/tailscale/tailscale.git
+RUN apk update && apk add git
+RUN git clone https://github.com/tailscale/tailscale.git --depth=1
 
-WORKDIR /tailscale/cmd/derper
-RUN go install ./
+WORKDIR /go/tailscale/cmd/derper
+RUN  go install ./
 
-# https://tailscale.com/kb/1118/custom-derp-servers/
 FROM alpine
-COPY --from=build-stage /go/bin/derper /
-CMD /derper
+LABEL author=zyqcn@live.com
+
+COPY --from=build-stage /go/bin/derper /usr/local/bin
+ENTRYPOINT ["derper"]

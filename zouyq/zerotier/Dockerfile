@@ -1,12 +1,12 @@
 FROM alpine as builder
 
-RUN apk add --update alpine-sdk linux-headers
+RUN apk add alpine-sdk linux-headers cargo openssl openssl-dev
 
 WORKDIR /
-RUN git clone https://github.com/zerotier/ZeroTierOne.git
+RUN git clone https://github.com/zerotier/ZeroTierOne.git --depth=1
 
 WORKDIR /ZeroTierOne
-RUN make -f make-linux.mk
+RUN make 
 
 FROM alpine
 

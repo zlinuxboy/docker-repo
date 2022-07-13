@@ -1,7 +1,7 @@
-FROM golang:alpine as build-stage
+FROM golang:alpine as build-stage                                                                                                                                                      
 LABEL author="zouyiq@gmail.com"
 
-RUN apk update && apk add git
+RUN apk update && apk add git 
 
 WORKDIR /
 RUN git clone https://github.com/tailscale/tailscale.git
