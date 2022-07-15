@@ -11,7 +11,7 @@ RUN apk add --no-cache ca-certificates iptables iproute2 ip6tables tzdata
 
 COPY --from=zouyq/tailscale /usr/local/bin/tailscale /usr/local/bin
 COPY --from=zouyq/tailscale /usr/local/bin/tailscaled /usr/local/bin
-COPY --from=build-stage /go/tailscale/doc/k8s/run.sh /entrypoint.sh
+COPY --from=build-stage /go/tailscale/docs/k8s/run.sh /entrypoint.sh
 
 RUN chmod +x /entrypoint.sh
 
