@@ -13,7 +13,7 @@ RUN ./build_dist.sh tailscale.com/cmd/tailscaled
 FROM alpine
 LABEL author="zyqcn@live.com"
 
-RUN apk add --no-cache ca-certificates iptables iproute2 ip6tables
+RUN apk add --no-cache ca-certificates iptables iproute2 ip6tables tzdata
 
 COPY --from=build-stage /go/tailscale/tailscale /usr/local/bin
 COPY --from=build-stage /go/tailscale/tailscaled /usr/local/bin
