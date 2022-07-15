@@ -1,8 +1,18 @@
-FROM zouyq/tailscale
+FROM alpine as build-stage
+
+RUN apk add --no-cache git curl
+
+RUN git clone https://github.com/tailscale/tailscale.git --depth=1
+
+FROM alpine
 LABEL author="zyqcn@live.com"
 
-RUN apk add --no-cache ca-certificates iptables iproute2 ip6tables
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
+RUN apk add --no-cache ca-certificates iptables iproute2 ip6tables tzdata
 
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+COPY --from=zouyq/tailscale /usr/local/bin/tailscale /usr/local/bin
+COPY --from=zouyq/tailscale /usr/local/bin/tailscaled /usr/local/bin
+COPY --from=build-stage /go/tailscale/doc/k8s/run.sh /entrypoint.sh
+
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
