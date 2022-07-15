@@ -9,7 +9,7 @@ env:
   target_directory: tailscale
 
 jobs:
-  docker:
+  build-push:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
