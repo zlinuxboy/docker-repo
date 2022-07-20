@@ -15,4 +15,4 @@ COPY --from=build-stage /tailscale/docs/k8s/run.sh /entrypoint.sh
 
 RUN chmod +x /entrypoint.sh
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/bin/sh","/entrypoint.sh"]
