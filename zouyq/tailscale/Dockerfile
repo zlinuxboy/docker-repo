@@ -3,7 +3,7 @@ FROM golang:alpine as build-stage
 RUN apk add --no-cache git curl
 
 RUN git clone https://github.com/tailscale/tailscale.git --depth=1
-WORKDIR /go/tailscale
+WORKDIR tailscale
 
 RUN  ln -f -s $(which go) ./tool/go
 
