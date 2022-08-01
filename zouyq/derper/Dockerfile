@@ -3,7 +3,7 @@ FROM golang:alpine as build-stage
 RUN apk add git
 RUN git clone https://github.com/tailscale/tailscale.git --depth=1
 
-WORKDIR /go/tailscale/cmd/derper
+WORKDIR tailscale/cmd/derper
 RUN  go install ./
 
 FROM alpine
