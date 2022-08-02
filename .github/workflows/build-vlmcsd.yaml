@@ -37,13 +37,6 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
 
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v1
-        with:
-          registry: ghcr.io
-          username: ${{ env.base_directory }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Lower case
         id: string
         uses: ASzc/change-string-case-action@v1
@@ -54,11 +47,10 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./${{ env.base_directory }}/${{ env.target_directory }}
-          platforms: linux/amd64
+          platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/386,linux/ppc64le,linux/s390x
           push: true
           tags: |
             ${{ steps.string.outputs.lowercase }}
-#            ghcr.io/${{ steps.string.outputs.lowercase }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 

@@ -1,6 +1,7 @@
-FROM alpine:latest as builder
+FROM alpine as builder
 
 RUN apk add --no-cache git make build-base
+
 RUN git clone https://github.com/Wind4/vlmcsd.git --depth=1
 
 WORKDIR vlmcsd
