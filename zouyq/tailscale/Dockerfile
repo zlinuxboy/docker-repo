@@ -1,6 +1,6 @@
 FROM golang:alpine as build-stage
 
-RUN apk add --no-cache git curl
+RUN apk add --no-cache git
 
 RUN git clone https://github.com/tailscale/tailscale.git --depth=1
 WORKDIR tailscale
