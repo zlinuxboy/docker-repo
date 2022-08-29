@@ -10,5 +10,5 @@ FROM alpine
 LABEL author=zyqcn@live.com
 RUN apk add --no-cache libstdc++
 
-COPY --from=builder /stunserver/stunserver /usr/local/bin/
+COPY --from=builder /stunserver/stunclient /usr/local/bin/
 ENTRYPOINT ["stunclient"]
