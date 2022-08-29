@@ -9,6 +9,7 @@ RUN git clone https://github.com/pymumu/smartdns.git \
     && make -j
 
 FROM alpine:latest
+LABEL author=zyqcn@live.com
 
 RUN apk add --no-cache openssl libgcc
 
