@@ -12,4 +12,5 @@ RUN yarn install && yarn build
 
 FROM nginx:alpine
 LABEL author="zouyiq@gmail.com"
+
 COPY --from=build-stage /home/sub-web/dist /usr/share/nginx/html
