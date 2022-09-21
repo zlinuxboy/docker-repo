@@ -15,4 +15,6 @@ RUN apk add --no-cache tzdata tini libgcc
 COPY --from=builder /rustdesk-server/target/release/hbbr /usr/local/bin/hbbr
 COPY --from=builder /rustdesk-server/target/release/hbbs /usr/local/bin/hbbs
 
+WORKDIR /root
+
 ENTRYPOINT ["tini", "--"]
