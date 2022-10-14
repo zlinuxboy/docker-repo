@@ -1,4 +1,4 @@
-FROM alpine as builder
+FROM alpine:edge as builder
 
 RUN apk add --no-cache bash git go gcc musl-dev curl
 RUN git clone https://github.com/alist-org/alist.git
