@@ -1,9 +1,9 @@
-FROM golang:alpine AS builder
+FROM alpine:edge AS builder
 
-RUN apk add --no-cache git make
-WORKDIR /
+RUN apk add --no-cache git make go
 RUN git clone https://github.com/p4gefau1t/trojan-go.git --depth=1
-RUN cd trojan-go && make
+WORKDIR trojan-go
+RUN  make
 
 FROM alpine
 

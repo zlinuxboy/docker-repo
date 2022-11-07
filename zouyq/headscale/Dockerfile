@@ -1,6 +1,6 @@
-FROM golang:alpine as build-stage
+FROM alpine:edge as build-stage
 
-RUN apk add --no-cache git gcc musl-dev
+RUN apk add --no-cache go git gcc musl-dev
 
 RUN git clone https://github.com/juanfont/headscale.git --depth=1
 WORKDIR headscale

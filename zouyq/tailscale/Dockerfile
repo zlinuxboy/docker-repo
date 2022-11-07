@@ -1,6 +1,6 @@
-FROM golang:alpine as build-stage
+FROM alpine:edge as build-stage
 
-RUN apk add --no-cache git
+RUN apk add --no-cache git go
 
 RUN git clone https://github.com/tailscale/tailscale.git --depth=1
 WORKDIR tailscale
@@ -15,7 +15,7 @@ LABEL author="zyqcn@live.com"
 
 RUN apk add --no-cache ca-certificates iptables iproute2 ip6tables tzdata
 
-COPY --from=build-stage /go/tailscale/tailscale /usr/local/bin
-COPY --from=build-stage /go/tailscale/tailscaled /usr/local/bin
+COPY --from=build-stage /tailscale/tailscale /usr/local/bin
+COPY --from=build-stage /tailscale/tailscaled /usr/local/bin
 
 ENTRYPOINT ["tailscaled"]
