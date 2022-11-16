@@ -2,13 +2,13 @@ FROM alpine:edge as build-stage
 
 RUN apk add --no-cache git go
 
-RUN git clone https://github.com/tailscale/tailscale.git --depth=1
+RUN git clone https://github.com/tailscale/tailscale.git
+
 WORKDIR tailscale
 
-RUN  ln -f -s $(which go) ./tool/go
+RUN go build -o ./tailscale ./cmd/tailscale
+RUN go build -o ./tailscaled ./cmd/tailscaled
 
-RUN ./build_dist.sh tailscale.com/cmd/tailscale
-RUN ./build_dist.sh tailscale.com/cmd/tailscaled
 
 FROM alpine
 LABEL author="zyqcn@live.com"

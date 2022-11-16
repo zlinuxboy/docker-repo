@@ -1,5 +1,23 @@
-FROM zouyq/tailscale
+FROM alpine:edge as build-stage
 
-ADD https://raw.githubusercontent.com/tailscale/tailscale/main/docs/k8s/run.sh /entrypoint.sh
+RUN apk add --no-cache git go
 
-ENTRYPOINT ["/bin/sh","/entrypoint.sh"]
+RUN git clone https://github.com/tailscale/tailscale.git
+
+WORKDIR tailscale
+
+RUN go build -o ./tailscale ./cmd/tailscale
+RUN go build -o ./tailscaled ./cmd/tailscaled
+RUN go build -o ./containerboot ./cmd/containerboot
+
+
+FROM alpine
+LABEL author="zyqcn@live.com"
+
+RUN apk add --no-cache ca-certificates iptables iproute2 ip6tables tzdata
+
+COPY --from=build-stage /tailscale/tailscale /usr/local/bin
+COPY --from=build-stage /tailscale/tailscaled /usr/local/bin
+COPY --from=build-stage /tailscale/containerboot /usr/local/bin
+
+ENTRYPOINT ["containerboot"]

@@ -1,15 +1,18 @@
-FROM golang:alpine as build-stage                                                                                                                                                      
+FROM alpine:edge as build-stage
 
-RUN apk add git
-RUN git clone https://github.com/tailscale/tailscale.git --depth=1
+RUN apk add --no-cache git go
 
-WORKDIR tailscale/cmd/derper
-RUN  go install ./
+RUN git clone https://github.com/tailscale/tailscale.git
+
+WORKDIR tailscale
+
+RUN go build -o ./derper ./cmd/derper
 
 FROM alpine
 LABEL author=zyqcn@live.com
 
 RUN apk add --no-cache tzdata
 
-COPY --from=build-stage /go/bin/derper /usr/local/bin
+COPY --from=build-stage /tailscale/derper /usr/local/bin
+
 ENTRYPOINT ["derper"]
