@@ -12,6 +12,4 @@ LABEL MAINTAINER="zyqcn@live.com"
 
 COPY --from=builder /go/AdGuardHome/AdGuardHome /usr/local/bin/AdGuardHome
 
-COPY AdGuardHome.yaml /usr/local/bin/AdGuardHome.yaml
-
 ENTRYPOINT ["AdGuardHome"]
