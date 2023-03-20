@@ -10,9 +10,9 @@ RUN tar -xvf /clash/yacd.tar.xz -C /clash
 FROM alpine
 LABEL container.maintainer="zyqcn@live.com"
 
-COPY --from=dreamacro/clash-premium:latest /clash /usr/local/bin/clash
 COPY --from=builder /clash/public /ui
 COPY --from=builder /clash/Country.mmdb /clash/Country.mmdb
+COPY --from=dreamacro/clash-premium /clash /usr/local/bin/clash
 
 RUN apk add --no-cache tzdata
 
