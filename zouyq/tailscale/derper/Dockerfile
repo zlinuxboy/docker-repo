@@ -12,8 +12,6 @@ RUN ./build_dist.sh tailscale.com/cmd/derper
 FROM alpine
 LABEL author="zyqcn@live.com"
 
-RUN apk add --no-cache ca-certificates iptables iproute2 ip6tables tzdata
-
 COPY --from=build-stage /tailscale/derper /usr/local/bin
 
 ENTRYPOINT ["derper"]
