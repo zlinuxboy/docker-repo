@@ -31,7 +31,7 @@ RUN apk add --no-cache --update bash libmnl gcompat iptables openresolv iproute2
 COPY --from=builder /usr/bin/wireguard-go /usr/bin/wg* /usr/bin/
 COPY --from=builder /app/netclient-app ./netclient
 COPY --from=builder /app/scripts/netclient.sh .
-RUN chmod 0755 netclient && chmod 0755 netclient.sh+
+RUN chmod 0755 netclient && chmod 0755 netclient.sh
 
 ENV WG_QUICK_USERSPACE_IMPLEMENTATION=wireguard-go
 
