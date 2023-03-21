@@ -1,12 +1,10 @@
 FROM alpine as builder
 
-RUN apk add --no-cache git make build-base
-
-RUN git clone https://github.com/Wind4/vlmcsd.git --depth=1
-
+RUN apk add git build-base
+RUN git clone https://github.com/Wind4/vlmcsd.git
 WORKDIR vlmcsd
 
-RUN make
+RUN make -j${nproc}
 
 FROM alpine
 LABEL maintainer="zyqcn@live.com"

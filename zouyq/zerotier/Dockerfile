@@ -1,26 +1,19 @@
-FROM alpine as builder
+FROM alpine:edge as builder
 
-RUN apk add alpine-sdk linux-headers cargo openssl openssl-dev
+RUN apk add git alpine-sdk linux-headers openssl-dev
+RUN git clone https://github.com/zerotier/ZeroTierOne.git
 
-WORKDIR /
-RUN git clone https://github.com/zerotier/ZeroTierOne.git --depth=1
+WORKDIR ZeroTierOne
 
-WORKDIR /ZeroTierOne
-RUN make 
+RUN make ZT_SSO_SUPPORTED=0 -j${nproc}
 
 FROM alpine
+LABEL author="zyqcn@live.com"
 
-LABEL author="zouyiq@gmail.com"
+RUN apk add --no-cache libstdc++
 
-COPY --from=builder /ZeroTierOne/zerotier-one /usr/sbin
-COPY --from=builder /ZeroTierOne/zerotier-cli /usr/sbin
-COPY --from=builder /ZeroTierOne/zerotier-idtool /usr/sbin
+COPY --from=builder /ZeroTierOne/zerotier-one /usr/local/bin
+COPY --from=builder /ZeroTierOne/zerotier-cli /usr/local/bin
+COPY --from=builder /ZeroTierOne/zerotier-idtool /usr/local/bin
 
-RUN apk add --no-cache libstdc++ && rm -rf /var/cache/apk/*
-
-COPY entrypoint.sh /entrypoint.sh
-COPY moon.sh /moon.sh
-RUN chmod 755 /entrypoint.sh
-RUN chmod 755 /moon.sh
-
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["zerotier-one"]

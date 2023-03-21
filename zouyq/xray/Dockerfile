@@ -1,17 +1,15 @@
-FROM golang:alpine as builder
+FROM alpine as builder
 
-RUN apk add --no-cache git
+RUN apk add git go
 
-RUN git clone https://github.com/XTLS/Xray-core.git --depth=1
-
+RUN git clone https://github.com/XTLS/Xray-core.git
 WORKDIR Xray-core
 
-RUN CGO_ENABLED=0 go build -o /tmp/bin/xray -trimpath -ldflags '-s -w -buildid=' ./main
+RUN go build -o ./xray ./main
 
 FROM alpine
 LABEL maintainer="zyqcn@live.com"
 
-RUN apk add --no-cache tzdata
-COPY --from=builder /tmp/bin/xray /usr/local/bin/
+COPY --from=builder /Xray-core/xray /usr/local/bin/
 
 ENTRYPOINT ["xray"]

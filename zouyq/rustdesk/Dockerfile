@@ -1,6 +1,6 @@
 FROM alpine as builder
 
-RUN apk add --no-cache git alpine-sdk cargo
+RUN apk add git alpine-sdk cargo
 RUN git clone https://github.com/rustdesk/rustdesk-server.git
 
 WORKDIR rustdesk-server

@@ -1,10 +1,10 @@
 FROM alpine:edge as builder
 
-RUN apk add --no-cache bash git go gcc musl-dev curl
+RUN apk add --no-cache git go gcc musl-dev curl
 RUN git clone https://github.com/alist-org/alist.git
 WORKDIR alist
 
-RUN bash build.sh release docker
+RUN go build -o ./alist
 
 FROM alpine
 LABEL MAINTAINER="zyqcn@live.com"

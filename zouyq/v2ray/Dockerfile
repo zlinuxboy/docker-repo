@@ -1,17 +1,14 @@
-FROM golang:alpine AS builder
+FROM alpine AS builder
 
-RUN apk update && apk add --no-cache git bash wget curl
-WORKDIR /build
+RUN apk add git go
+RUN git clone https://github.com/v2fly/v2ray-core.git
 
-RUN git clone --depth=1 --progress https://github.com/v2fly/v2ray-core.git . && \
-    bash ./release/user-package.sh nosource noconf codename=$(git describe --abbrev=0 --tags) buildname=docker-fly abpathtgz=/tmp/v2ray.tgz
+WORKDIR /v2ray-core
+
+RUN go build -o ./v2ray ./main
 
 FROM alpine
 
-COPY --from=builder /tmp/v2ray.tgz /tmp
+COPY --from=builder /v2ray-core/v2ray /usr/local/bin/v2ray
 
-RUN apk add --no-cache tzdata ca-certificates && \
-    tar xvfz /tmp/v2ray.tgz -C /usr/local/bin/
-
-ENTRYPOINT ["/usr/local/bin/v2ray", "run", "-config"]
-CMD ["/etc/v2ray/config.json"]
+ENTRYPOINT ["v2ray"]

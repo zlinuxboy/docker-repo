@@ -1,4 +1,4 @@
-FROM alpine:edge as builder
+FROM alpine as builder
 
 RUN apk add --no-cache make git go
 

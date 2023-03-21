@@ -1,6 +1,6 @@
 FROM alpine as builder
 
-RUN apk add --no-cache git g++ build-base linux-headers cmake curl-dev rapidjson-dev libevent-dev pcre2-dev yaml-cpp-dev
+RUN apk add git build-base linux-headers curl-dev rapidjson-dev libevent-dev pcre2-dev yaml-cpp-dev
 
 WORKDIR /home
 RUN git clone https://github.com/ftk/quickjspp --depth=1

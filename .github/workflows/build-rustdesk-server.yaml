@@ -1,4 +1,4 @@
-name: build-rustdesk-server
+name: build-rustdesk
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   schedule:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 env:
   base_directory: zouyq
-  target_directory: rustdesk-server
+  target_directory: rustdesk
 
 jobs:
   docker:
