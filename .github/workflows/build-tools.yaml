@@ -12,7 +12,7 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     strategy:
-      matrix: { dir: [ 'flyctl', 'heroku'], 'git']}
+      matrix: { dir: [ 'flyctl', 'heroku', 'git']}
 
     steps:
       - name: Checkout
