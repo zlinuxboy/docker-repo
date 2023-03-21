@@ -1,4 +1,4 @@
-FROM alpine:edge as builder
+FROM alpine as builder
 
 RUN apk add git alpine-sdk linux-headers openssl-dev
 RUN git clone https://github.com/zerotier/ZeroTierOne.git
